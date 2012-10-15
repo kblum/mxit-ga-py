@@ -1,8 +1,14 @@
-# Google Analytics for Mxit
+# mxit_ga - Google Analytics for Mxit
 
 Python module to perform Google Analytics tracking for Mxit web applications.
 
 Only tracking of page view events is currently supported.
+
+## Installation
+
+Clone the Git repository for the module. After the repository has been cloned it can be installed from the command line:
+
+	python setup.py install
 
 ## Usage
 
