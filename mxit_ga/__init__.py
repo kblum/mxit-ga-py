@@ -4,15 +4,17 @@ class MxitGa:
 
     base_url = 'http://www.google-analytics.com/__utm.gif' # Google Analytics tracking GIF
 
-    def __init__(self, analytics_id):
+    def __init__(self, analytics_id, track_anonymous=False):
         """
         Construct Google Analytics for Mxit class.
 
         `analytics_id` - Google Analytics account ID to track events against.
+        `track_anonymous` - if requests without a Mxit user ID header should be tracked.
         """
         self.analytics_id = analytics_id
         if (self.analytics_id.startswith('UA-')):
             self.analytics_id = self.analytics_id.replace('UA-', 'MO-')
+        self.track_anonymous = track_anonymous
 
     def track_page(self, headers, client_ip, host, path, query_string=None):
         """
@@ -25,7 +27,10 @@ class MxitGa:
         `query_string` - query string component of the URL (optional).
         """   
 
-        user_id = headers.get('X-Mxit-USERID-R') # unique identifier for user
+        user_id = headers.get('X-Mxit-USERID-R', None) # unique identifier for user
+
+        if not user_id and not self.track_anonymous:
+            return True # return without error
 
         visitor_id = self._visitor_id(user_id)
 
