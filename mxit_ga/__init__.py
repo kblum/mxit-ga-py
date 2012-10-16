@@ -2,7 +2,7 @@ import urllib2, random, hashlib, uuid, re
 
 class MxitGa:
 
-    base_url = 'http://www.google-analytics.com/__utm.gif' # Google Analytics tracking GIF
+    _base_url = 'http://www.google-analytics.com/__utm.gif' # Google Analytics tracking GIF
 
     def __init__(self, analytics_id, track_anonymous=False):
         """
@@ -11,10 +11,10 @@ class MxitGa:
         `analytics_id` - Google Analytics account ID to track events against.
         `track_anonymous` - if requests without a Mxit user ID header should be tracked.
         """
-        self.analytics_id = analytics_id
-        if (self.analytics_id.startswith('UA-')):
-            self.analytics_id = self.analytics_id.replace('UA-', 'MO-')
-        self.track_anonymous = track_anonymous
+        self._analytics_id = analytics_id
+        if (self._analytics_id.startswith('UA-')):
+            self._analytics_id = self._analytics_id.replace('UA-', 'MO-')
+        self._track_anonymous = track_anonymous
 
     def track_page(self, headers, client_ip, host, path, query_string=None):
         """
@@ -29,7 +29,7 @@ class MxitGa:
 
         user_id = headers.get('X-Mxit-USERID-R', None) # unique identifier for user
 
-        if not user_id and not self.track_anonymous:
+        if not user_id and not self._track_anonymous:
             return True # return without error
 
         visitor_id = self._visitor_id(user_id)
@@ -149,5 +149,5 @@ class MxitGa:
         """
         param_strings = ['&{0}={1}'.format(x[0], x[1]) for x in params.items()]
         query_string = ''.join(param_strings)
-        url = '{0}?utmac={1}{2}'.format(self.base_url, self.analytics_id, query_string)
+        url = '{0}?utmac={1}{2}'.format(self._base_url, self._analytics_id, query_string)
         return url
