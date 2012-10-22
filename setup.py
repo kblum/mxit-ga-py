@@ -15,7 +15,7 @@ setup(
     author = "Konrad Blum",
     author_email = "konrad@kblum.com",
     description = "Python module to perform Google Analytics tracking for Mxit web applications.",
-    license = "TODO",
+    license = "MIT",
     keywords = "google analytics mxit",
     url = "https://github.com/kblum/mxit-ga-py",
     download_url = "https://github.com/kblum/mxit-ga-py/downloads",
@@ -27,5 +27,6 @@ setup(
         "Intended Audience :: Developers",
         "Operating System :: OS Independent",
         "Topic :: Software Development :: Libraries :: Python Modules",
+        "License :: OSI Approved :: MIT License",
     ]
 )
